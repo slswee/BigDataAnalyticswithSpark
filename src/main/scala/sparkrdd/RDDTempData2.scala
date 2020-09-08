@@ -24,7 +24,7 @@ object RDDTempData2 extends JFXApp {
     else Seq(TempData(p(0).toInt, p(1).toInt, p(2).toInt, p(4).toInt,
       TempData.toDoubleOrNeg(p(5)), TempData.toDoubleOrNeg(p(6)), p(7)
         .toDouble, p(8).toDouble, p(9).toDouble))
-  }.cache() // cache() will store this RDD in memory, all future uses of
+  }.cache // cache() will store this RDD in memory, all future uses of
   // this will use this data in memory, so we don't have to reprocess the
   // data each and every time
 
@@ -89,5 +89,11 @@ object RDDTempData2 extends JFXApp {
       0xff0000ff, 5)
 
   ), "Temps", "Month", "Temperature")
-  FXRenderer(plot, 800, 600)
+
+  //  FXRenderer(plot, 800, 600)
+
+  // RDDDoubleFunctions for statistics
+  println("Stdev of highs: " + data.map(_.tmax).stdev)
+  println("Stdev of lows: " + data.map(_.tmin).stdev)
+  println("Stdev of avgs: " + data.map(_.tave).stdev)
 }
